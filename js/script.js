@@ -84,6 +84,10 @@ createProjectButton.addEventListener("click", () => {
 			localStorage.setItem("createdProjects", JSON.stringify(existingProjects));
 
 			// update the Aside to show all of the projects
+			const listElem = document.getElementById("list-of-projects");
+			while (listElem.firstChild) {
+				listElem.removeChild(listElem.firstChild);
+			}
 			const localProjects = addProjectsToList(getLocalProjects());
 
 			// hide the dialog
