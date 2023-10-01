@@ -1,3 +1,5 @@
+const dialogElem = document.getElementById("dialog-create-new-project");
+const createProjectButton = document.getElementById("btn-create-new-project");
 const btnCreateNewProject = document.getElementById("create-new-project");
 const btnCancelCreateNewProject = document.getElementById(
 	"btn-cancel-create-new-project"
@@ -18,8 +20,6 @@ btnCancelCreateNewProject.addEventListener("click", () => {
 });
 
 const toggleCreateNewProjectDialog = () => {
-	const dialogElem = document.getElementById("dialog-create-new-project");
-
 	dialogElem.addEventListener("transitionend", () => {
 		if (dialogElem.classList.contains("active")) {
 			const inputElem = document.querySelector(".input-project-name");
@@ -30,18 +30,98 @@ const toggleCreateNewProjectDialog = () => {
 	dialogElem.classList.toggle("active");
 };
 
+/* ************************************************************************* */
+createProjectButton.addEventListener("click", () => {
+	const inputElem = document.querySelector(".input-project-name");
+	const includeNav = document.getElementById("include-nav");
+
+	/* If a name is entered, check to make sure it doesn't conflict with any
+	   other name in localStorage */
+	if (inputElem.value.length > 0) {
+		const nameExists = checkDuplicateProjectName(inputElem.value);
+		if (!nameExists) {
+			// get all projects
+			let existingProjects = getLocalProjects();
+			// if navigation checkbox is checked, add navigation to object
+			if (existingProjects) {
+				const nav = includeNav.checked
+					? {
+							header: [
+								{
+									type: "img",
+									src: "https://placehold.co/400x400",
+									width: 400,
+									height: 400,
+								},
+								{
+									type: "h1",
+									fontSize: "default",
+									color: "#fff",
+									text: inputElem.value,
+								},
+							],
+					  }
+					: [];
+				// add project to localStorage
+				existingProjects.projects = [
+					...existingProjects.projects,
+					{
+						name: inputElem.value,
+						layout: [nav],
+					},
+				];
+			} else {
+				existingProjects = {
+					projects: [
+						{
+							name: inputElem.value,
+							layout: [],
+						},
+					],
+				};
+			}
+
+			localStorage.setItem("createdProjects", JSON.stringify(existingProjects));
+
+			// update the Aside to show all of the projects
+			const localProjects = addProjectsToList(getLocalProjects());
+
+			// hide the dialog
+			dialogElem.classList.toggle("active");
+		}
+	}
+});
+
+/**
+ * Return true if a Project Name already exists
+ * @param {String} str Project Name entered by user into input element
+ * @returns { Boolean }
+ */
+const checkDuplicateProjectName = (str) => {
+	// get all project names from localStorage
+	const values = getLocalProjects();
+	let names = "";
+	if (values) {
+		names = values.projects.map((value) => value.name);
+	}
+
+	// check if names parameter matches any of these names
+	// return true if there is a match
+	return names.includes(str);
+};
+
 /**
  * Add temporary data to localStorage - for Development Only
  */
-const projects = {
-	projects: [
-		{ name: "Project 1", layout: [] },
-		{ name: "Project 2", layout: [] },
-		{ name: "Project 3", layout: [] },
-	],
-};
+// const projects = {
+// 	projects: [
+// 		{ name: "Project 1", layout: [] },
+// 		{ name: "Project 2", layout: [] },
+// 		{ name: "Project 3", layout: [] },
+// 	],
+// };
 
-localStorage.setItem("createdProjects", JSON.stringify(projects));
+// localStorage.setItem("createdProjects", JSON.stringify(projects));
 
 /**
  * Get all projects from localStorage
@@ -58,31 +138,33 @@ const getLocalProjects = () => {
  */
 const addProjectsToList = (localProjects) => {
 	const listElem = document.getElementById("list-of-projects");
-	localProjects.projects.map((project) => {
-		const projectDiv = document.createElement("div");
-		projectDiv.className = "project-link";
+	if (localProjects) {
+		localProjects.projects.map((project) => {
+			const projectDiv = document.createElement("div");
+			projectDiv.className = "project-link";
 
-		const innerDiv = document.createElement("div");
-		innerDiv.className = "link-project--name";
+			const innerDiv = document.createElement("div");
+			innerDiv.className = "link-project--name";
 
-		const fontAwesomeDiv = document.createElement("i");
-		fontAwesomeDiv.className = "fa-regular fa-circle";
+			const fontAwesomeDiv = document.createElement("i");
+			fontAwesomeDiv.className = "fa-regular fa-circle";
 
-		const innerPara = document.createElement("p");
-		innerPara.textContent = project.name;
+			const innerPara = document.createElement("p");
+			innerPara.textContent = project.name;
 
-		innerDiv.appendChild(fontAwesomeDiv);
-		innerDiv.appendChild(innerPara);
+			innerDiv.appendChild(fontAwesomeDiv);
+			innerDiv.appendChild(innerPara);
 
-		projectDiv.appendChild(innerDiv);
+			projectDiv.appendChild(innerDiv);
 
-		const arrowDiv = document.createElement("i");
-		arrowDiv.className = "fa-solid fa-chevron-right";
+			const arrowDiv = document.createElement("i");
+			arrowDiv.className = "fa-solid fa-chevron-right";
 
-		projectDiv.appendChild(arrowDiv);
+			projectDiv.appendChild(arrowDiv);
 
-		listElem.appendChild(projectDiv);
-	});
+			listElem.appendChild(projectDiv);
+		});
+	}
 };
 
 const localProjects = addProjectsToList(getLocalProjects());
