@@ -20,6 +20,24 @@ img {
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
+  cursor: pointer;
+  padding: 0.5rem 0.5rem;
+  transition: all 0.25s ease-in-out;
+  text-align: center;
+}
+.btn.cancel {
+  background-color: #fff;
+  border: 2px solid #d3a5d3;
+  color: #d3a5d3;
+  font-weight: 700;
+  width: 50%;
+  margin-right: 1rem;
+}
+.btn.call-to-action {
+  background-color: #d3a5d3;
+  color: #fff;
+  width: 50%;
+  margin-left: 1rem;
 }
 
 .dialog {
@@ -27,33 +45,60 @@ img {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(51, 51, 51, 0.8);
+  background-color: rgba(51, 51, 51, 0.4666666667);
   padding: 1rem;
 }
-.dialog .dialog-header {
+.dialog .dialog-inner--container {
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+.dialog .dialog-inner--container .dialog-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.dialog .dialog-header .close-button {
-  color: #ccc;
+.dialog .dialog-inner--container .dialog-header h1 {
+  font-size: 1.5rem;
 }
-.dialog .dialog-contents {
+.dialog .dialog-inner--container .dialog-header .close-button {
+  color: #ccc;
+  font-size: 1.5rem;
+}
+.dialog .dialog-inner--container .dialog-contents {
   background-color: #ccc;
   margin-top: 1rem;
   border-radius: 0.5rem;
   padding: 1rem;
 }
-.dialog .dialog-contents h2 {
+.dialog .dialog-inner--container .dialog-contents h2 {
   font-size: 1.25rem;
-  margin-bottom: 0.5rem;
 }
-.dialog .dialog-contents .input-project-name {
+.dialog .dialog-inner--container .dialog-contents .input-project-name {
   border-radius: 0.5rem;
   outline: none;
   border: none;
   padding: 0.5rem;
   width: 100%;
+  margin: 1rem 0;
+}
+.dialog .dialog-description {
+  margin: 2rem 0;
+  display: flex;
+}
+.dialog .dialog-description i {
+  color: #d3a5d3;
+  font-size: 1.5rem;
+}
+.dialog .dialog-description p {
+  margin-left: 1rem;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+.dialog .dialog-button--container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .dialog .new-project-dialog {
   background-color: #fff;
@@ -87,11 +132,7 @@ img {
   font-size: 1.25rem;
 }
 #tools aside .project-list--header #view-all-projects {
-  cursor: pointer;
   text-decoration: none;
-  border-radius: 50px;
-  padding: 0.25rem 0.5rem;
-  transition: all 0.25s ease-in-out;
   background-color: #d3a5d3;
   color: #fff;
 }
