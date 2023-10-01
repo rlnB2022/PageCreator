@@ -27,7 +27,7 @@ img {
 }
 #tools aside {
   position: relative;
-  min-height: 100dvh;
+  height: 100dvh;
   padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
@@ -64,14 +64,16 @@ img {
   color: #fff;
 }
 #tools aside .project-list--links {
+  overflow: auto;
   flex: 1;
-  margin: 2rem 0 100px;
+  margin-right: -10px;
 }
 #tools aside .project-list--links .project-link {
   display: flex;
   justify-content: space-between;
   padding: 1rem 0;
   border-radius: 50px;
+  margin-right: 10px;
 }
 #tools aside .project-list--links .project-link i {
   color: #555;
@@ -86,11 +88,10 @@ img {
 #tools aside .project-list--links .project-link .link-project--name p {
   margin-left: 1rem;
 }
-#tools aside #create-new-project {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
+#tools aside #create-new-project--container {
+  text-align: center;
+}
+#tools aside #create-new-project--container a {
   padding: 1rem;
   background-color: rgb(190, 0, 149);
   color: #fff;

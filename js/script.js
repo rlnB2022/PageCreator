@@ -1,4 +1,6 @@
-/* Add temporary data */
+/**
+ * Add temporary data to localStorage - for Development Only
+ */
 const projects = {
 	projects: [
 		{ name: "Project 1", layout: [] },
@@ -9,20 +11,22 @@ const projects = {
 
 localStorage.setItem("createdProjects", JSON.stringify(projects));
 
-const projectsList = JSON.parse(localStorage.getItem("createdProjects"));
-
-console.log(projectsList);
-
 /**
- * Get created projects from localStorage
- * and populate list of projects
+ * Get all projects from localStorage
+ * @returns Array of Projects
  */
 
 const getLocalProjects = () => {
-	const listElem = document.getElementById("list-of-projects");
+	return JSON.parse(localStorage.getItem("createdProjects"));
+};
 
-	const projectsList = JSON.parse(localStorage.getItem("createdProjects"));
-	projectsList.projects.map((project) => {
+/**
+ * Add Projects to the List!
+ * @param {Array} localProjects
+ */
+const addProjectsToList = (localProjects) => {
+	const listElem = document.getElementById("list-of-projects");
+	localProjects.projects.map((project) => {
 		const projectDiv = document.createElement("div");
 		projectDiv.className = "project-link";
 
@@ -49,4 +53,4 @@ const getLocalProjects = () => {
 	});
 };
 
-getLocalProjects();
+const localProjects = addProjectsToList(getLocalProjects());
