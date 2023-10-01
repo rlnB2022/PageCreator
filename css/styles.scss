@@ -74,7 +74,7 @@ img {
 			}
 		}
 		.dialog-contents {
-			background-color: #ccc;
+			background-color: #eef;
 			margin-top: 1rem;
 			border-radius: 0.5rem;
 			padding: 1rem;
@@ -89,7 +89,22 @@ img {
 				border: none;
 				padding: 0.5rem;
 				width: 100%;
-				margin: 1rem 0;
+				margin: 1rem 0 0;
+			}
+
+			.project-name--error {
+				color: red;
+				margin-bottom: 1rem;
+				font-size: 0.85rem;
+				display: none;
+				&.error {
+					display: block;
+					margin-bottom: 0;
+				}
+			}
+
+			#include-nav {
+				margin-top: 1rem;
 			}
 		}
 	}

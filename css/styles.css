@@ -70,7 +70,7 @@ img {
   font-size: 1.5rem;
 }
 .dialog .dialog-inner--container .dialog-contents {
-  background-color: #ccc;
+  background-color: #eef;
   margin-top: 1rem;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -84,7 +84,20 @@ img {
   border: none;
   padding: 0.5rem;
   width: 100%;
-  margin: 1rem 0;
+  margin: 1rem 0 0;
+}
+.dialog .dialog-inner--container .dialog-contents .project-name--error {
+  color: red;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  display: none;
+}
+.dialog .dialog-inner--container .dialog-contents .project-name--error.error {
+  display: block;
+  margin-bottom: 0;
+}
+.dialog .dialog-inner--container .dialog-contents #include-nav {
+  margin-top: 1rem;
 }
 .dialog .dialog-description {
   margin: 2rem 0;

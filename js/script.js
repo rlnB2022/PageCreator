@@ -1,5 +1,6 @@
 const dialogElem = document.getElementById("dialog-create-new-project");
 const createProjectButton = document.getElementById("btn-create-new-project");
+const errorElem = document.querySelector(".project-name--error");
 const btnCreateNewProject = document.getElementById("create-new-project");
 const btnCancelCreateNewProject = document.getElementById(
 	"btn-cancel-create-new-project"
@@ -83,15 +84,19 @@ createProjectButton.addEventListener("click", () => {
 
 			localStorage.setItem("createdProjects", JSON.stringify(existingProjects));
 
-			// update the Aside to show all of the projects
+			// Remove all children in list of projects
 			const listElem = document.getElementById("list-of-projects");
 			while (listElem.firstChild) {
 				listElem.removeChild(listElem.firstChild);
 			}
+			// update the Aside to show all of the projects
 			const localProjects = addProjectsToList(getLocalProjects());
 
 			// hide the dialog
 			dialogElem.classList.toggle("active");
+		} else {
+			// name exists, show error
+			errorElem.classList.add("error");
 		}
 	}
 });
