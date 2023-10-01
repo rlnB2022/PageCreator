@@ -1,3 +1,35 @@
+const btnCreateNewProject = document.getElementById("create-new-project");
+const btnCancelCreateNewProject = document.getElementById(
+	"btn-cancel-create-new-project"
+);
+const btnCreate = document.getElementById("btn-cancel-create-new-project");
+const btnCloseButton = document.querySelector(".close-button");
+
+btnCloseButton.addEventListener("click", () => {
+	toggleCreateNewProjectDialog();
+});
+
+btnCreateNewProject.addEventListener("click", () => {
+	toggleCreateNewProjectDialog();
+});
+
+btnCancelCreateNewProject.addEventListener("click", () => {
+	toggleCreateNewProjectDialog();
+});
+
+const toggleCreateNewProjectDialog = () => {
+	const dialogElem = document.getElementById("dialog-create-new-project");
+
+	dialogElem.addEventListener("transitionend", () => {
+		if (dialogElem.classList.contains("active")) {
+			const inputElem = document.querySelector(".input-project-name");
+			inputElem.focus();
+		}
+	});
+
+	dialogElem.classList.toggle("active");
+};
+
 /**
  * Add temporary data to localStorage - for Development Only
  */

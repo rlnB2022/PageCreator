@@ -44,11 +44,16 @@ img {
 
 .dialog {
 	position: absolute;
-	bottom: 0;
+	bottom: -100%;
 	left: 0;
 	right: 0;
 	background-color: #33333377;
 	padding: 1rem;
+	transition: bottom 0.2s ease-in-out;
+
+	&.active {
+		bottom: 0;
+	}
 
 	.dialog-inner--container {
 		background-color: #fff;
@@ -98,7 +103,7 @@ img {
 		}
 		p {
 			margin-left: 1rem;
-			font-size: .85rem;
+			font-size: 0.85rem;
 			color: #aaa;
 		}
 	}
