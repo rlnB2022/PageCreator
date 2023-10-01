@@ -14,15 +14,30 @@ img {
 	vertical-align: middle;
 }
 
+.btn {
+	border-radius: 50px;
+	border: 1px solid #ccc;
+	text-decoration: none;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
 #tools {
 	min-height: 100dvh;
 
 	aside {
+		position: relative;
 		min-height: 100dvh;
-		text-align: center;
-		padding: 2rem 1rem;
+		padding: 2rem 1.5rem;
+		display: flex;
+		flex-direction: column;
 
-		.project-list {
+		img {
+			display: block;
+			margin: 0 auto;
+		}
+
+		.project-list--header {
 			margin-top: 2rem;
 			text-align: left;
 			color: #ccc;
@@ -38,19 +53,61 @@ img {
 				cursor: pointer;
 				text-decoration: none;
 				border-radius: 50px;
-				border: 1px solid #aaa;
+				// border: 1px solid #ccc;
 				padding: 0.25rem 0.5rem;
 				transition: all 0.25s ease-in-out;
+				background-color: #d3a5d3;
+				color: #fff;
 
 				&:link,
 				&:visited {
-					color: #ccc;
+					color: #fff;
 				}
 
 				&:hover {
-					background-color: #4c5e88;
+					background-color: #88764c;
+					color: #fff;
 				}
 			}
+		}
+
+		.project-list--links {
+			flex: 1;
+			margin: 2rem 0 100px;
+
+			.project-link {
+				display: flex;
+				justify-content: space-between;
+				padding: 1rem 0;
+				border-radius: 50px;
+
+				i {
+					color: #555;
+				}
+
+				&.active {
+					background-color: #cccccc33;
+				}
+
+				.link-project--name {
+					display: flex;
+					color: #555;
+
+					p {
+						margin-left: 1rem;
+					}
+				}
+			}
+		}
+
+		#create-new-project {
+			position: absolute;
+			bottom: 2rem;
+			left: 50%;
+			transform: translateX(-50%);
+			padding: 1rem;
+			background-color: rgb(190, 0, 149);
+			color: #fff;
 		}
 	}
 

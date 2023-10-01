@@ -14,15 +14,29 @@ img {
   vertical-align: middle;
 }
 
+.btn {
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 #tools {
   min-height: 100dvh;
 }
 #tools aside {
+  position: relative;
   min-height: 100dvh;
-  text-align: center;
-  padding: 2rem 1rem;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
-#tools aside .project-list {
+#tools aside img {
+  display: block;
+  margin: 0 auto;
+}
+#tools aside .project-list--header {
   margin-top: 2rem;
   text-align: left;
   color: #ccc;
@@ -30,20 +44,54 @@ img {
   justify-content: space-between;
   align-items: center;
 }
-#tools aside .project-list h2 {
+#tools aside .project-list--header h2 {
   font-size: 1.25rem;
 }
-#tools aside .project-list #view-all-projects {
+#tools aside .project-list--header #view-all-projects {
   cursor: pointer;
   text-decoration: none;
   border-radius: 50px;
-  border: 1px solid #aaa;
   padding: 0.25rem 0.5rem;
   transition: all 0.25s ease-in-out;
+  background-color: #d3a5d3;
+  color: #fff;
 }
-#tools aside .project-list #view-all-projects:link, #tools aside .project-list #view-all-projects:visited {
-  color: #ccc;
+#tools aside .project-list--header #view-all-projects:link, #tools aside .project-list--header #view-all-projects:visited {
+  color: #fff;
 }
-#tools aside .project-list #view-all-projects:hover {
-  background-color: #4c5e88;
+#tools aside .project-list--header #view-all-projects:hover {
+  background-color: #88764c;
+  color: #fff;
+}
+#tools aside .project-list--links {
+  flex: 1;
+  margin: 2rem 0 100px;
+}
+#tools aside .project-list--links .project-link {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-radius: 50px;
+}
+#tools aside .project-list--links .project-link i {
+  color: #555;
+}
+#tools aside .project-list--links .project-link.active {
+  background-color: rgba(204, 204, 204, 0.2);
+}
+#tools aside .project-list--links .project-link .link-project--name {
+  display: flex;
+  color: #555;
+}
+#tools aside .project-list--links .project-link .link-project--name p {
+  margin-left: 1rem;
+}
+#tools aside #create-new-project {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem;
+  background-color: rgb(190, 0, 149);
+  color: #fff;
 }
