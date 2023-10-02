@@ -96,7 +96,7 @@ createProjectButton.addEventListener("click", () => {
 			dialogElem.classList.toggle("active");
 		} else {
 			// name exists, show error
-			errorElem.classList.add("error");
+			errorElem.textContent = "Project Name already exists.";
 		}
 	}
 });
