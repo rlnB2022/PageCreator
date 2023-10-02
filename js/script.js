@@ -22,10 +22,12 @@ btnCancelCreateNewProject.addEventListener("click", () => {
 
 const toggleCreateNewProjectDialog = () => {
 	dialogElem.addEventListener("transitionend", () => {
+		const inputElem = document.querySelector(".input-project-name");
 		if (dialogElem.classList.contains("active")) {
-			const inputElem = document.querySelector(".input-project-name");
 			inputElem.focus();
 		}
+		inputElem.value = "";
+		errorElem.textContent = "";
 	});
 
 	dialogElem.classList.toggle("active");
