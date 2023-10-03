@@ -33,7 +33,9 @@ const toggleCreateNewProjectDialog = () => {
 	dialogElem.classList.toggle("active");
 };
 
-/* ************************************************************************* */
+/**
+ *
+ */
 createProjectButton.addEventListener("click", () => {
 	const inputElem = document.querySelector(".input-project-name");
 	const includeNav = document.getElementById("include-nav");
@@ -91,17 +93,28 @@ createProjectButton.addEventListener("click", () => {
 			while (listElem.firstChild) {
 				listElem.removeChild(listElem.firstChild);
 			}
-			// update the Aside to show all of the projects
+			// update the Aside element to show all of the projects
 			const localProjects = addProjectsToList(getLocalProjects());
 
 			// hide the dialog
 			dialogElem.classList.toggle("active");
 		} else {
 			// name exists, show error
-			errorElem.textContent = "Project Name already exists.";
+			displayError(errorElem, "Project Name already exists.");
 		}
 	}
 });
+
+/**
+ *
+ * @param { Object } element
+ * @param { String } text
+ */
+const displayError = (element, text) => {
+	if (element instanceof HTMLElement) {
+		element.textContent = text;
+	}
+};
 
 /**
  * Return true if a Project Name already exists
