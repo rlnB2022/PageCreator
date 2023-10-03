@@ -1,3 +1,5 @@
+import { displayError } from "./utils.js";
+
 const dialogElem = document.getElementById("dialog-create-new-project");
 const createProjectButton = document.getElementById("btn-create-new-project");
 const errorElem = document.querySelector(".project-name--error");
@@ -104,17 +106,6 @@ createProjectButton.addEventListener("click", () => {
 		}
 	}
 });
-
-/**
- * Method to display an error message on an element
- * @param { Object } element
- * @param { String } text
- */
-const displayError = (element, text) => {
-	if (element instanceof HTMLElement) {
-		element.textContent = text;
-	}
-};
 
 /**
  * Return true if a Project Name already exists
