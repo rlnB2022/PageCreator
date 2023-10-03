@@ -106,7 +106,7 @@ createProjectButton.addEventListener("click", () => {
 });
 
 /**
- *
+ * Method to display an error message on an element
  * @param { Object } element
  * @param { String } text
  */
