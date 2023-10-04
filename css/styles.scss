@@ -80,6 +80,12 @@ img {
 			border-radius: 0.5rem;
 			padding: 1rem;
 
+			.checkbox-container {
+				display: flex;
+				align-items: center;
+				margin-top: 0.25rem;
+			}
+
 			h2 {
 				font-size: 1.25rem;
 			}
@@ -90,7 +96,6 @@ img {
 				border: none;
 				padding: 0.5rem;
 				width: 100%;
-				margin: 1rem 0 0;
 			}
 
 			.project-name--error {
@@ -99,8 +104,9 @@ img {
 				height: 0.5rem;
 			}
 
-			#include-nav {
-				margin-top: 1rem;
+			#include-nav,
+			#launch-page {
+				margin-right: 0.5rem;
 			}
 		}
 	}
@@ -142,6 +148,12 @@ img {
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
+		transition: 0.4s ease-in-out;
+		opacity: 1;
+
+		&.hide-tools {
+			opacity: 0;
+		}
 
 		img {
 			display: block;
@@ -219,5 +231,17 @@ img {
 	}
 
 	#main {
+		background-color: red;
+		opacity: 0;
+		transition: 0.4s ease-in-out;
+		height: 100dvh;
+		padding: 2rem 1.5rem;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+
+		&.show-main {
+			opacity: 1;
+		}
 	}
 }

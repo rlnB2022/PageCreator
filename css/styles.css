@@ -76,6 +76,11 @@ img {
   border-radius: 0.5rem;
   padding: 1rem;
 }
+.dialog .dialog-inner--container .dialog-contents .checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-top: 0.25rem;
+}
 .dialog .dialog-inner--container .dialog-contents h2 {
   font-size: 1.25rem;
 }
@@ -85,15 +90,15 @@ img {
   border: none;
   padding: 0.5rem;
   width: 100%;
-  margin: 1rem 0 0;
 }
 .dialog .dialog-inner--container .dialog-contents .project-name--error {
   color: red;
   font-size: 0.85rem;
   height: 0.5rem;
 }
-.dialog .dialog-inner--container .dialog-contents #include-nav {
-  margin-top: 1rem;
+.dialog .dialog-inner--container .dialog-contents #include-nav,
+.dialog .dialog-inner--container .dialog-contents #launch-page {
+  margin-right: 0.5rem;
 }
 .dialog .dialog-description {
   margin: 2rem 0;
@@ -129,6 +134,11 @@ img {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: 0.4s ease-in-out;
+  opacity: 1;
+}
+#tools aside.hide-tools {
+  opacity: 0;
 }
 #tools aside img {
   display: block;
@@ -189,4 +199,17 @@ img {
   padding: 1rem;
   background-color: rgb(190, 0, 149);
   color: #fff;
+}
+#tools #main {
+  background-color: red;
+  opacity: 0;
+  transition: 0.4s ease-in-out;
+  height: 100dvh;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#tools #main.show-main {
+  opacity: 1;
 }

@@ -35,9 +35,6 @@ const toggleCreateNewProjectDialog = () => {
 	dialogElem.classList.toggle("active");
 };
 
-/**
- *
- */
 createProjectButton.addEventListener("click", () => {
 	const inputElem = document.querySelector(".input-project-name");
 	const includeNav = document.getElementById("include-nav");
@@ -96,16 +93,53 @@ createProjectButton.addEventListener("click", () => {
 				listElem.removeChild(listElem.firstChild);
 			}
 			// update the Aside element to show all of the projects
-			const localProjects = addProjectsToList(getLocalProjects());
+			addProjectsToList(getLocalProjects());
 
 			// hide the dialog
 			dialogElem.classList.toggle("active");
+
+			// launch page, if option selected
+			const launchPage = document.getElementById("launch-page").checked;
+
+			if (launchPage) {
+				// hide the tools
+				const mobileAside = document.getElementById("mobile-aside");
+				const main = document.getElementById("main");
+
+				// ******** ON MOBILE ONLY! *********
+				// hide mobileAside, show main
+				mobileTransitions(mobileAside, main);
+
+				mobileAside.classList.add("hide-tools");
+
+				mobileAside.ontransitionend = () => {
+					mobileAside.style.display = "none";
+					// display the page
+					main.classList.add("show-main");
+				};
+			}
 		} else {
 			// name exists, show error
 			displayError(errorElem, "Project Name already exists.");
 		}
 	}
 });
+
+/**
+ * Method to hide the first element (with a transition, opacity effect)
+ * and show the second element (also with a transition, opacity effect)
+ * @param { HTMLElement } fromElement
+ * @param { HTMLElement } toElement
+ */
+const mobileTransitions = (fromElement, toElement) => {
+	// if both parameters are HTMLElements, fade fromElement out, fade toElement in
+	if (fromElement instanceof HTMLElement && toElement instanceof HTMLElement) {
+		fromElement.classList.add("element-hidden");
+		fromElement.ontransitionend = () => {
+			toElement.classList.remove("element-hidden");
+		};
+	}
+};
 
 /**
  * Return true if a Project Name already exists

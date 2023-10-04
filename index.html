@@ -22,7 +22,7 @@
 	<body>
 		<div id="App"></div>
 		<div id="tools">
-			<aside>
+			<aside id="mobile-aside">
 				<div id="dialog-create-new-project" class="dialog">
 					<div class="dialog-inner--container">
 						<div class="dialog-header">
@@ -35,8 +35,14 @@
 							<h2>Project Name:</h2>
 							<input class="input-project-name" type="text" />
 							<p class="project-name--error"></p>
-							<input id="include-nav" type="checkbox" checked />
-							<label for="include-nav">Include navigation</label>
+							<div class="checkbox-container">
+								<input id="include-nav" type="checkbox" checked />
+								<label for="include-nav">Include navigation</label>
+							</div>
+							<div class="checkbox-container">
+								<input id="launch-page" type="checkbox" checked />
+								<label for="launch-page">Launch after creation</label>
+							</div>
 						</div>
 						<div class="dialog-description">
 							<i class="fa-solid fa-circle-info"></i>
@@ -64,7 +70,7 @@
 					<a id="create-new-project" class="btn" href="#">Create New Project</a>
 				</div>
 			</aside>
-			<div id="main"></div>
+			<div id="main" class="element-hidden"></div>
 		</div>
 		<script type="module" src="/js/script.js"></script>
 	</body>
