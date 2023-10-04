@@ -1,4 +1,4 @@
-import { displayError } from "./utils.js";
+import { displayError, mobileTransitions } from "./utils.js";
 
 const dialogElem = document.getElementById("dialog-create-new-project");
 const createProjectButton = document.getElementById("btn-create-new-project");
@@ -35,6 +35,10 @@ const toggleCreateNewProjectDialog = () => {
 	dialogElem.classList.toggle("active");
 };
 
+/**
+ * Create the project!
+ * Make sure the Project name doesn't already exist.
+ */
 createProjectButton.addEventListener("click", () => {
 	const inputElem = document.querySelector(".input-project-name");
 	const includeNav = document.getElementById("include-nav");
@@ -46,32 +50,32 @@ createProjectButton.addEventListener("click", () => {
 		if (!nameExists) {
 			// get all projects
 			let existingProjects = getLocalProjects();
+			const nav = includeNav.checked
+				? {
+						header: [
+							{
+								type: "img",
+								src: "https://placehold.co/400x400",
+								width: 400,
+								height: 400,
+							},
+							{
+								type: "h1",
+								fontSize: "default",
+								color: "#fff",
+								text: inputElem.value,
+							},
+						],
+				  }
+				: [];
 			// if navigation checkbox is checked, add navigation to object
 			if (existingProjects) {
-				const nav = includeNav.checked
-					? {
-							header: [
-								{
-									type: "img",
-									src: "https://placehold.co/400x400",
-									width: 400,
-									height: 400,
-								},
-								{
-									type: "h1",
-									fontSize: "default",
-									color: "#fff",
-									text: inputElem.value,
-								},
-							],
-					  }
-					: [];
 				// add project to localStorage
 				existingProjects.projects = [
 					...existingProjects.projects,
 					{
 						name: inputElem.value,
-						layout: [nav],
+						layout: nav,
 					},
 				];
 			} else {
@@ -79,7 +83,7 @@ createProjectButton.addEventListener("click", () => {
 					projects: [
 						{
 							name: inputElem.value,
-							layout: [],
+							layout: nav,
 						},
 					],
 				};
@@ -124,22 +128,6 @@ createProjectButton.addEventListener("click", () => {
 		}
 	}
 });
-
-/**
- * Method to hide the first element (with a transition, opacity effect)
- * and show the second element (also with a transition, opacity effect)
- * @param { HTMLElement } fromElement
- * @param { HTMLElement } toElement
- */
-const mobileTransitions = (fromElement, toElement) => {
-	// if both parameters are HTMLElements, fade fromElement out, fade toElement in
-	if (fromElement instanceof HTMLElement && toElement instanceof HTMLElement) {
-		fromElement.classList.add("element-hidden");
-		fromElement.ontransitionend = () => {
-			toElement.classList.remove("element-hidden");
-		};
-	}
-};
 
 /**
  * Return true if a Project Name already exists
