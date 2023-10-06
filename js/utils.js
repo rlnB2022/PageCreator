@@ -9,18 +9,29 @@ export const displayError = (element, text) => {
 	}
 };
 
-/**
- * Method to hide the first element (with a transition, opacity effect)
- * and show the second element (also with a transition, opacity effect)
- * @param { HTMLElement } fromElement
- * @param { HTMLElement } toElement
- */
-export const mobileTransitions = (fromElement, toElement) => {
-	// if both parameters are HTMLElements, fade fromElement out, fade toElement in
-	if (fromElement instanceof HTMLElement && toElement instanceof HTMLElement) {
-		fromElement.classList.add("element-hidden");
-		fromElement.ontransitionend = () => {
-			toElement.classList.remove("element-hidden");
-		};
+export const showPage = (elem) => {
+	if (elem instanceof HTMLElement) {
+		elem.classList.remove("element-hidden");
+		elem.classList.remove("hide-right");
 	}
+};
+
+/**
+ * Returns a uuid
+ */
+export const uuidv4 = () => {
+	return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) =>
+		(
+			c ^
+			(crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+		).toString(16)
+	);
+};
+
+export const populatePage = (id) => {
+	// clear the main page
+	const mainPage = document.getElementById("main");
+	mainPage.replaceChildren();
+	// get JSON data from localStorage using id
+	// loop through layout array creating the page
 };

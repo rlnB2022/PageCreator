@@ -6,7 +6,8 @@
 }
 
 body {
-  min-height: 100dvh;
+  height: 100dvh;
+  width: 100dvw;
 }
 
 img {
@@ -125,10 +126,12 @@ img {
 }
 
 #tools {
-  min-height: 100dvh;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 #tools aside {
-  position: relative;
   height: 100dvh;
   padding: 2rem 1.5rem;
   display: flex;
@@ -137,7 +140,10 @@ img {
   transition: 0.4s ease-in-out;
   opacity: 1;
 }
-#tools aside.hide-tools {
+#tools aside.element-hidden {
+  display: none;
+}
+#tools aside.fade-out {
   opacity: 0;
 }
 #tools aside img {
@@ -201,15 +207,18 @@ img {
   color: #fff;
 }
 #tools #main {
+  position: absolute;
+  top: 0;
+  left: 0;
   background-color: red;
-  opacity: 0;
-  transition: 0.4s ease-in-out;
-  height: 100dvh;
+  opacity: 1;
+  transition: 0.25s ease-in-out;
+  height: 100%;
+  width: 100%;
   padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
-#tools #main.show-main {
-  opacity: 1;
+#tools #main.hide-right {
+  left: 100%;
 }

@@ -1,4 +1,4 @@
-import { displayError, mobileTransitions } from "./utils.js";
+import { displayError, populatePage, showPage, uuidv4 } from "./utils.js";
 
 const dialogElem = document.getElementById("dialog-create-new-project");
 const createProjectButton = document.getElementById("btn-create-new-project");
@@ -37,7 +37,6 @@ const toggleCreateNewProjectDialog = () => {
 
 /**
  * Create the project!
- * Make sure the Project name doesn't already exist.
  */
 createProjectButton.addEventListener("click", () => {
 	const inputElem = document.querySelector(".input-project-name");
@@ -50,6 +49,14 @@ createProjectButton.addEventListener("click", () => {
 		if (!nameExists) {
 			// get all projects
 			let existingProjects = getLocalProjects();
+			// create the uuid
+			let id = uuidv4();
+			/* if the user wants a navigation header automatically included
+			   create the header array to add to the object
+			   should include an image (logo)
+			   an h1 tag and a ul with typical menu settings:
+			   Home, About, Contact, etc.
+			*/
 			const nav = includeNav.checked
 				? {
 						header: [
@@ -61,9 +68,44 @@ createProjectButton.addEventListener("click", () => {
 							},
 							{
 								type: "h1",
-								fontSize: "default",
-								color: "#fff",
+								styles: {
+									"font-size": "1rem",
+									color: "#fff",
+								},
 								text: inputElem.value,
+							},
+							{
+								type: "ul",
+								styles: {
+									"list-style-type": "none",
+									display: "flex",
+								},
+								listItems: [
+									{
+										id: "nav-home",
+										label: "Home",
+										styles: {
+											"text-decoration": "none",
+											"font-size": "1rem",
+										},
+									},
+									{
+										id: "nav-about",
+										label: "About",
+										styles: {
+											"text-decoration": "none",
+											"font-size": "1rem",
+										},
+									},
+									{
+										id: "nav-contact",
+										label: "Contact",
+										styles: {
+											"text-decoration": "none",
+											"font-size": "1rem",
+										},
+									},
+								],
 							},
 						],
 				  }
@@ -74,6 +116,7 @@ createProjectButton.addEventListener("click", () => {
 				existingProjects.projects = [
 					...existingProjects.projects,
 					{
+						id: id,
 						name: inputElem.value,
 						layout: nav,
 					},
@@ -82,6 +125,7 @@ createProjectButton.addEventListener("click", () => {
 				existingProjects = {
 					projects: [
 						{
+							id: id,
 							name: inputElem.value,
 							layout: nav,
 						},
@@ -93,9 +137,8 @@ createProjectButton.addEventListener("click", () => {
 
 			// Remove all children in list of projects
 			const listElem = document.getElementById("list-of-projects");
-			while (listElem.firstChild) {
-				listElem.removeChild(listElem.firstChild);
-			}
+			listElem.replaceChildren();
+
 			// update the Aside element to show all of the projects
 			addProjectsToList(getLocalProjects());
 
@@ -106,21 +149,11 @@ createProjectButton.addEventListener("click", () => {
 			const launchPage = document.getElementById("launch-page").checked;
 
 			if (launchPage) {
-				// hide the tools
-				const mobileAside = document.getElementById("mobile-aside");
 				const main = document.getElementById("main");
 
 				// ******** ON MOBILE ONLY! *********
-				// hide mobileAside, show main
-				mobileTransitions(mobileAside, main);
-
-				mobileAside.classList.add("hide-tools");
-
-				mobileAside.ontransitionend = () => {
-					mobileAside.style.display = "none";
-					// display the page
-					main.classList.add("show-main");
-				};
+				populatePage(id);
+				showPage(main);
 			}
 		} else {
 			// name exists, show error
@@ -148,19 +181,6 @@ const checkDuplicateProjectName = (str) => {
 };
 
 /**
- * Add temporary data to localStorage - for Development Only
- */
-// const projects = {
-// 	projects: [
-// 		{ name: "Project 1", layout: [] },
-// 		{ name: "Project 2", layout: [] },
-// 		{ name: "Project 3", layout: [] },
-// 	],
-// };
-
-// localStorage.setItem("createdProjects", JSON.stringify(projects));
-
-/**
  * Get all projects from localStorage
  * @returns Array of Projects
  */
@@ -179,6 +199,14 @@ const addProjectsToList = (localProjects) => {
 		localProjects.projects.map((project) => {
 			const projectDiv = document.createElement("div");
 			projectDiv.className = "project-link";
+			// add id so the correct page will display when the item is clicked on
+			projectDiv.dataset.id = project.id;
+
+			// add eventlistener
+			projectDiv.addEventListener("click", () => {
+				populatePage(project.id);
+				showPage(main);
+			});
 
 			const innerDiv = document.createElement("div");
 			innerDiv.className = "link-project--name";

@@ -6,7 +6,8 @@
 }
 
 body {
-	min-height: 100dvh;
+	height: 100dvh;
+	width: 100dvw;
 }
 
 img {
@@ -139,10 +140,12 @@ img {
 }
 
 #tools {
-	min-height: 100dvh;
+	position: relative;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
 
 	aside {
-		position: relative;
 		height: 100dvh;
 		padding: 2rem 1.5rem;
 		display: flex;
@@ -151,7 +154,11 @@ img {
 		transition: 0.4s ease-in-out;
 		opacity: 1;
 
-		&.hide-tools {
+		&.element-hidden {
+			display: none;
+		}
+
+		&.fade-out {
 			opacity: 0;
 		}
 
@@ -229,19 +236,21 @@ img {
 			}
 		}
 	}
-
 	#main {
+		position: absolute;
+		top: 0;
+		left: 0;
 		background-color: red;
-		opacity: 0;
-		transition: 0.4s ease-in-out;
-		height: 100dvh;
+		opacity: 1;
+		transition: 0.25s ease-in-out;
+		height: 100%;
+		width: 100%;
 		padding: 2rem 1.5rem;
 		display: flex;
 		flex-direction: column;
-		overflow: hidden;
 
-		&.show-main {
-			opacity: 1;
+		&.hide-right {
+			left: 100%;
 		}
 	}
 }
