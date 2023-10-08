@@ -27,11 +27,3 @@ export const uuidv4 = () => {
 		).toString(16)
 	);
 };
-
-export const populatePage = (id) => {
-	// clear the main page
-	const mainPage = document.getElementById("main");
-	mainPage.replaceChildren();
-	// get JSON data from localStorage using id
-	// loop through layout array creating the page
-};

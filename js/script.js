@@ -1,4 +1,4 @@
-import { displayError, populatePage, showPage, uuidv4 } from "./utils.js";
+import { displayError, showPage, uuidv4 } from "./utils.js";
 
 const dialogElem = document.getElementById("dialog-create-new-project");
 const createProjectButton = document.getElementById("btn-create-new-project");
@@ -59,57 +59,87 @@ createProjectButton.addEventListener("click", () => {
 			*/
 			const nav = includeNav.checked
 				? {
-						header: [
-							{
-								type: "img",
-								src: "https://placehold.co/400x400",
-								width: 400,
-								height: 400,
-							},
-							{
-								type: "h1",
-								styles: {
-									"font-size": "1rem",
-									color: "#fff",
+						header: {
+							attr: [
+								{
+									class: "test-class",
 								},
-								text: inputElem.value,
-							},
-							{
-								type: "ul",
-								styles: {
-									"list-style-type": "none",
-									display: "flex",
+							],
+							children: [
+								{
+									type: "img",
+									attr: [
+										{ src: "https://placehold.co/400x400" },
+										{ width: 400 },
+										{ height: 400 },
+									],
 								},
-								listItems: [
-									{
-										id: "nav-home",
-										label: "Home",
-										styles: {
-											"text-decoration": "none",
-											"font-size": "1rem",
-										},
-									},
-									{
-										id: "nav-about",
-										label: "About",
-										styles: {
-											"text-decoration": "none",
-											"font-size": "1rem",
-										},
-									},
-									{
-										id: "nav-contact",
-										label: "Contact",
-										styles: {
-											"text-decoration": "none",
-											"font-size": "1rem",
-										},
-									},
-								],
-							},
-						],
+								// {
+								// 	type: "h1",
+								// 	attr: [
+								// 		{
+								// 			styles: {
+								// 				"font-size": "1rem",
+								// 				color: "#fff",
+								// 			},
+								// 		},
+								// 	],
+								// 	text: inputElem.value,
+								// },
+								// {
+								// 	type: "ul",
+								// 	attr: [
+								// 		{
+								// 			styles: {
+								// 				"list-style-type": "none",
+								// 				display: "flex",
+								// 			},
+								// 		},
+								// 	],
+								// 	children: [
+								// 		{
+								// 			type: "li",
+								// 			id: "nav-home",
+								// 			label: "Home",
+								// 			attr: [
+								// 				{
+								// 					styles: {
+								// 						"text-decoration": "none",
+								// 						"font-size": "1rem",
+								// 					},
+								// 				},
+								// 			],
+								// 		},
+								// 		{
+								// 			id: "nav-about",
+								// 			label: "About",
+								// 			attr: [
+								// 				{
+								// 					styles: {
+								// 						"text-decoration": "none",
+								// 						"font-size": "1rem",
+								// 					},
+								// 				},
+								// 			],
+								// 		},
+								// 		{
+								// 			id: "nav-contact",
+								// 			label: "Contact",
+								// 			attr: [
+								// 				{
+								// 					styles: {
+								// 						"text-decoration": "none",
+								// 						"font-size": "1rem",
+								// 					},
+								// 				},
+								// 			],
+								// 		},
+								// 	],
+								// },
+							],
+						},
 				  }
-				: [];
+				: {};
 			// if navigation checkbox is checked, add navigation to object
 			if (existingProjects) {
 				// add project to localStorage
@@ -149,7 +179,7 @@ createProjectButton.addEventListener("click", () => {
 			const launchPage = document.getElementById("launch-page").checked;
 
 			if (launchPage) {
-				const main = document.getElementById("main");
+				const main = document.getElementById("App");
 
 				// ******** ON MOBILE ONLY! *********
 				populatePage(id);
@@ -182,7 +212,7 @@ const checkDuplicateProjectName = (str) => {
 
 /**
  * Get all projects from localStorage
- * @returns Array of Projects
+ * @returns Array of Projects, already parsed
  */
 
 const getLocalProjects = () => {
@@ -200,10 +230,11 @@ const addProjectsToList = (localProjects) => {
 			const projectDiv = document.createElement("div");
 			projectDiv.className = "project-link";
 			// add id so the correct page will display when the item is clicked on
-			projectDiv.dataset.id = project.id;
+			// projectDiv.dataset.id = project.id;
 
 			// add eventlistener
 			projectDiv.addEventListener("click", () => {
+				const main = document.getElementById("App");
 				populatePage(project.id);
 				showPage(main);
 			});
@@ -232,4 +263,77 @@ const addProjectsToList = (localProjects) => {
 	}
 };
 
-const localProjects = addProjectsToList(getLocalProjects());
+addProjectsToList(getLocalProjects());
+
+/**
+ * Populate the page with data from localStorage
+ * @param {String} id uuid of project in localStorage
+ */
+export const populatePage = (id) => {
+	// clear the main page
+	const mainPage = document.getElementById("App");
+	mainPage.replaceChildren();
+	// get projects array data from localStorage using id
+	const localProjects = getLocalProjects();
+
+	// console.log(localProjects.projects);
+
+	const projectData = localProjects.projects.filter(
+		(project) => project.id === id
+	);
+	// loop through layout array creating the page
+
+	const projectObj = Object.assign({}, ...projectData);
+
+	// loop through projectLayoutKeys to start adding elements to 'main'
+	for (const [key, value] of Object.entries(projectObj.layout)) {
+		console.log(key, value);
+		const childElement = createNewElement(key, value);
+		console.log(childElement);
+	}
+};
+
+const createNewElement = (type, data) => {
+	const parentElement = document.createElement(type);
+
+	// add any attributes to this element
+	data.attr.forEach((item) => {
+		console.log("item: ", item);
+		const key = Object.keys(item);
+		const value = Object.values(item);
+		parentElement.setAttribute(key, value);
+	});
+
+	// data.children.forEach((child) => {
+	// 	console.log(child);
+	// });
+	// const [attr, attrData] = Object.entries(data);
+
+	// console.log(attr, attrData);
+
+	// attr.forEach((att) => {
+	// 	parentElement.setAttribute();
+	// 	console.log(att);
+	// });
+
+	/*
+	attr: [
+		{
+			class: "test-class",
+		},
+	],
+	*/
+
+	// data.forEach((item) => {
+	// 	const childElement = document.createElement(child.type);
+
+	// 	item.attr.forEach((obj) => {
+	// 		const [key, value] = Object.entries(obj);
+	// 		console.log(key, value);
+	// 		// childElement.setAttribute(key, value);
+	// 	});
+
+	// 	parentElement.appendChild(childElement);
+	// });
+	return parentElement;
+};

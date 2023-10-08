@@ -84,6 +84,7 @@ img {
 }
 .dialog .dialog-inner--container .dialog-contents h2 {
   font-size: 1.25rem;
+  margin-bottom: 0.75rem;
 }
 .dialog .dialog-inner--container .dialog-contents .input-project-name {
   border-radius: 0.5rem;
@@ -206,7 +207,7 @@ img {
   background-color: rgb(190, 0, 149);
   color: #fff;
 }
-#tools #main {
+#tools #App {
   position: absolute;
   top: 0;
   left: 0;
@@ -219,6 +220,6 @@ img {
   display: flex;
   flex-direction: column;
 }
-#tools #main.hide-right {
+#tools #App.hide-right {
   left: 100%;
 }
