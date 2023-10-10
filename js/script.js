@@ -292,27 +292,28 @@ export const populatePage = (id) => {
 	}
 };
 
+/**
+ * Creates the page based on localStorage data
+ * @param { String } type
+ * @param { Object } data includes attributes and children
+ * @param { HTMLELement } parent
+ * @returns HTMLElement
+ */
 const createNewElement = (type, data, parent) => {
-	console.log("parent: ", parent);
 	const newElement = document.createElement(type);
-	console.log("newElement: ", newElement);
-	console.log("DATA: ", data);
 
 	// add any attributes to this element
 	if (data.attr) {
 		data.attr.forEach((item) => {
-			console.log("item: ", item);
 			const key = Object.keys(item);
 			const value = Object.values(item);
 			newElement.setAttribute(key, value);
 		});
 	}
 
-	// parent.append(newElement);
+	// get all children elements and recursively call THIS method
 	if (data.children) {
 		data.children.forEach((child) => {
-			console.log("child: ", child);
-			// console.log("parentElement: ", parentElement);
 			createNewElement(
 				child.type,
 				{
