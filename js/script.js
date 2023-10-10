@@ -302,18 +302,32 @@ export const populatePage = (id) => {
 const createNewElement = (type, data, parent) => {
 	const newElement = document.createElement(type);
 
+	const { attr, children } = data;
+
 	// add any attributes to this element
-	if (data.attr) {
-		data.attr.forEach((item) => {
+	if (attr) {
+		attr.forEach((item) => {
 			const key = Object.keys(item);
 			const value = Object.values(item);
-			newElement.setAttribute(key, value);
+			console.log("value: ", value);
+			if (typeof value === "object") {
+				let objValues = "";
+				for (const [key, val] of Object.entries(value)) {
+					objValues += val;
+				}
+
+				console.log("objValues: ", objValues);
+
+				newElement.setAttribute(key, objValues);
+			} else {
+				newElement.setAttribute(key, value);
+			}
 		});
 	}
 
 	// get all children elements and recursively call THIS method
-	if (data.children) {
-		data.children.forEach((child) => {
+	if (children) {
+		children.forEach((child) => {
 			createNewElement(
 				child.type,
 				{
