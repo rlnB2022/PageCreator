@@ -74,18 +74,18 @@ createProjectButton.addEventListener("click", () => {
 										{ height: 400 },
 									],
 								},
-								// {
-								// 	type: "h1",
-								// 	attr: [
-								// 		{
-								// 			styles: {
-								// 				"font-size": "1rem",
-								// 				color: "#fff",
-								// 			},
-								// 		},
-								// 	],
-								// 	text: inputElem.value,
-								// },
+								{
+									type: "h1",
+									attr: [
+										{
+											styles: {
+												"font-size": "1rem",
+												color: "#fff",
+											},
+										},
+									],
+									text: inputElem.value,
+								},
 								// {
 								// 	type: "ul",
 								// 	attr: [
@@ -287,53 +287,43 @@ export const populatePage = (id) => {
 
 	// loop through projectLayoutKeys to start adding elements to 'main'
 	for (const [key, value] of Object.entries(projectObj.layout)) {
-		console.log(key, value);
-		const childElement = createNewElement(key, value);
-		console.log(childElement);
+		const childElement = createNewElement(key, value, mainPage);
+		mainPage.append(childElement);
 	}
 };
 
-const createNewElement = (type, data) => {
-	const parentElement = document.createElement(type);
+const createNewElement = (type, data, parent) => {
+	console.log("parent: ", parent);
+	const newElement = document.createElement(type);
+	console.log("newElement: ", newElement);
+	console.log("DATA: ", data);
 
 	// add any attributes to this element
-	data.attr.forEach((item) => {
-		console.log("item: ", item);
-		const key = Object.keys(item);
-		const value = Object.values(item);
-		parentElement.setAttribute(key, value);
-	});
+	if (data.attr) {
+		data.attr.forEach((item) => {
+			console.log("item: ", item);
+			const key = Object.keys(item);
+			const value = Object.values(item);
+			newElement.setAttribute(key, value);
+		});
+	}
 
-	// data.children.forEach((child) => {
-	// 	console.log(child);
-	// });
-	// const [attr, attrData] = Object.entries(data);
+	// parent.append(newElement);
+	if (data.children) {
+		data.children.forEach((child) => {
+			console.log("child: ", child);
+			// console.log("parentElement: ", parentElement);
+			createNewElement(
+				child.type,
+				{
+					attr: child.attr,
+					children: child.children,
+				},
+				newElement
+			);
+		});
+	}
+	parent.append(newElement);
 
-	// console.log(attr, attrData);
-
-	// attr.forEach((att) => {
-	// 	parentElement.setAttribute();
-	// 	console.log(att);
-	// });
-
-	/*
-	attr: [
-		{
-			class: "test-class",
-		},
-	],
-	*/
-
-	// data.forEach((item) => {
-	// 	const childElement = document.createElement(child.type);
-
-	// 	item.attr.forEach((obj) => {
-	// 		const [key, value] = Object.entries(obj);
-	// 		console.log(key, value);
-	// 		// childElement.setAttribute(key, value);
-	// 	});
-
-	// 	parentElement.appendChild(childElement);
-	// });
-	return parentElement;
+	return newElement;
 };
