@@ -78,10 +78,7 @@ createProjectButton.addEventListener("click", () => {
 									type: "h1",
 									attr: [
 										{
-											styles: {
-												"font-size": "1rem",
-												color: "#fff",
-											},
+											style: "font-size: 1rem; color: #fff;",
 										},
 									],
 									text: inputElem.value,
@@ -302,27 +299,29 @@ export const populatePage = (id) => {
 const createNewElement = (type, data, parent) => {
 	const newElement = document.createElement(type);
 
-	const { attr, children } = data;
+	console.log("data:", data);
+
+	const { attr, text, children } = data;
 
 	// add any attributes to this element
 	if (attr) {
 		attr.forEach((item) => {
 			const key = Object.keys(item);
 			const value = Object.values(item);
-			console.log("value: ", value);
 			if (typeof value === "object") {
 				let objValues = "";
 				for (const [key, val] of Object.entries(value)) {
 					objValues += val;
 				}
-
-				console.log("objValues: ", objValues);
-
 				newElement.setAttribute(key, objValues);
 			} else {
 				newElement.setAttribute(key, value);
 			}
 		});
+	}
+
+	if (text) {
+		newElement.textContent = text;
 	}
 
 	// get all children elements and recursively call THIS method
@@ -333,6 +332,7 @@ const createNewElement = (type, data, parent) => {
 				{
 					attr: child.attr,
 					children: child.children,
+					text: child.text,
 				},
 				newElement
 			);
