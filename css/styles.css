@@ -216,10 +216,37 @@ img {
   transition: 0.25s ease-in-out;
   height: 100%;
   width: 100%;
-  padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
 }
 #tools #App.hide-right {
   left: 100%;
+}
+#tools #App .preset-header {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+}
+#tools #App .preset-header h1 {
+  padding-left: 0.5rem;
+}
+#tools #tools-bottom {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: pink;
+}
+#tools #tools-bottom ul {
+  display: flex;
+  padding: 1rem;
+  list-style-type: none;
+}
+#tools #tools-bottom ul li {
+  flex: 1;
+  text-align: center;
+}
+#tools #tools-bottom.tools-show {
+  display: block;
 }

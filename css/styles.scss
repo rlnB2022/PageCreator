@@ -246,12 +246,43 @@ img {
 		transition: 0.25s ease-in-out;
 		height: 100%;
 		width: 100%;
-		padding: 2rem 1.5rem;
+		// padding: 2rem 1.5rem;
 		display: flex;
 		flex-direction: column;
 
 		&.hide-right {
 			left: 100%;
+		}
+
+		.preset-header {
+			display: flex;
+			align-items: center;
+			padding: 0.75rem;
+
+			h1 {
+				padding-left: 0.5rem;
+			}
+		}
+	}
+	#tools-bottom {
+		display: none;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: pink;
+		// height: 100px;
+		ul {
+			display: flex;
+			padding: 1rem;
+			list-style-type: none;
+			li {
+				flex: 1;
+				text-align: center;
+			}
+		}
+		&.tools-show {
+			display: block;
 		}
 	}
 }

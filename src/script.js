@@ -62,16 +62,16 @@ createProjectButton.addEventListener("click", () => {
 						header: {
 							attr: [
 								{
-									class: "test-class",
+									class: "preset-header",
 								},
 							],
 							children: [
 								{
 									type: "img",
 									attr: [
-										{ src: "https://placehold.co/400x400" },
-										{ width: 400 },
-										{ height: 400 },
+										{ src: "https://placehold.co/40x40" },
+										{ width: 40 },
+										{ height: 40 },
 									],
 								},
 								{
