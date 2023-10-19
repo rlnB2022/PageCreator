@@ -247,6 +247,6 @@ img {
   flex: 1;
   text-align: center;
 }
-#tools #tools-bottom.tools-show {
+#tools #tools-bottom.show-tools {
   display: block;
 }

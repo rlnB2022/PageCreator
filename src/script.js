@@ -1,4 +1,4 @@
-import { displayError, showPage, uuidv4 } from "./utils.js";
+import { displayError, showPage, showTools, uuidv4 } from "./utils.js";
 
 const dialogElem = document.getElementById("dialog-create-new-project");
 const createProjectButton = document.getElementById("btn-create-new-project");

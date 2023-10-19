@@ -13,7 +13,16 @@ export const showPage = (elem) => {
 	if (elem instanceof HTMLElement) {
 		elem.classList.remove("element-hidden");
 		elem.classList.remove("hide-right");
+
+		showTools();
 	}
+};
+
+export const showTools = () => {
+	// show tools
+	const toolsElem = document.getElementById("tools-bottom");
+	// add class so it is visible
+	toolsElem.classList.add("show-tools");
 };
 
 /**
